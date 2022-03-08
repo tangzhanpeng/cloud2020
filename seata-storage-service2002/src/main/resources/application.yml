@@ -1,0 +1,43 @@
+server:
+  port: 2002
+
+spring:
+  application:
+    name: seata-storage-service
+  cloud:
+#    alibaba:
+#      seata:
+#        tx-service-group: fsp_tx_group
+    nacos:
+      discovery:
+        server-addr: localhost:4001
+        namespace: b8eb8eb1-c2a1-497b-a395-03b366354158
+        group: SEATA_GROUP
+  datasource:
+    driver-class-name: org.gjt.mm.mysql.Driver
+    url: jdbc:mysql://localhost:3306/seata_storage?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: tang0011
+
+logging:
+  level:
+    io:
+      seata: info
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+
+seata:
+  tx-service-group: my_test_tx_group
+  service:
+    vgroup-mapping:
+      my_test_tx_group: default
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:4001
+      application: seata-server
+      group: SEATA_GROUP
+      namespace: b8eb8eb1-c2a1-497b-a395-03b366354158
+      username: nacos
+      password: nacos
